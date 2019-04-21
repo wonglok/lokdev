@@ -10,13 +10,22 @@ export const init = ({ db }) => {
       throw new Error('no port')
     }
 
-    db.set('websocket', freePort)
+    db.defaults({
+      dbs: {
+        demo: [
+          {
+            id: '12345',
+            text: '12345'
+          }
+        ]
+      }
+    })
       .write()
 
     WSSerice.init({ port: freePort, db })
 
     nodemon({
-      exec: `VUE_CLI_CONTEXT=${path.join(__dirname, '../../')} vue-cli-service serve --port ${freePort + 10} --open`,
+      exec: `WS_PORT=${freePort}; VUE_CLI_CONTEXT=${path.join(__dirname, '../../')} vue-cli-service serve --port ${freePort + 10} --open`,
       ignore: ['**/*']
     })
   })

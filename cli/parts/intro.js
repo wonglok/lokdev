@@ -9,7 +9,12 @@ export function run () {
   )
   console.log(
     chalk.green(
-      figlet.textSync('lok-ui-devkit')
+      figlet.textSync(`Lok's`)
+    )
+  )
+  console.log(
+    chalk.green(
+      figlet.textSync(`UI-DevKit`)
     )
   )
 }
