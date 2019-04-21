@@ -1,17 +1,36 @@
 {
-  "name": "lok-dev-tools",
+  "name": "lokdev",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "scripts": {
+    "link": "npm link;",
+    "dev": "nodemon ./cli/entry.js --watch ./cli",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
+  "main": "cli/entry.js",
   "dependencies": {
+    "chalk": "^2.4.2",
+    "chokidar": "^2.1.5",
     "core-js": "^2.6.5",
+    "directory-watcher": "^2.0.3",
+    "esm": "^3.2.22",
+    "figlet": "^1.2.1",
+    "find-free-port": "^2.0.0",
+    "inquirer": "^6.3.1",
+    "lowdb": "^1.0.0",
+    "mkdirp": "^0.5.1",
+    "nodemon": "^1.18.11",
+    "socket.io": "^2.2.0",
+    "socket.io-client": "^2.2.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
     "vuex": "^3.0.1"
+  },
+  "preferGlobal": true,
+  "bin": {
+    "lokdev": "cli/entry.js"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.6.0",
