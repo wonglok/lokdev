@@ -15,6 +15,7 @@
     "chokidar": "^2.1.5",
     "core-js": "^2.6.5",
     "directory-watcher": "^2.0.3",
+    "element-ui": "^2.7.2",
     "esm": "^3.2.22",
     "figlet": "^1.2.1",
     "find-free-port": "^2.0.0",

@@ -5,6 +5,31 @@ if (process.env.NODE_ENV === 'production') {
   socket = io(`${window.location.hostname}:${2329}/devkit`)
 }
 
+export const transformDoc = (root, data) => {
+  if (data.db && data.op && data.oid && data.package) {
+    root.dbs = root.dbs || {}
+    //
+    root.dbs[data.db] = root.dbs[data.db] || {
+      array: []
+    }
+
+    let array = root.dbs[data.db].array
+    if (data.op === 'upsert') {
+      let idx = array.findIndex(ii => ii.oid === data.oid)
+      if (idx === -1) {
+        array.push(data.package)
+      } else {
+        array[idx] = data.package
+      }
+    }
+    if (data.op === 'remove') {
+      let idx = array.findIndex(ii => ii.oid === data.oid)
+      array.splice(idx, 1)
+    }
+  }
+  return root
+}
+
 export const getRealTimeUpdates = ({
   onRootArrived = () => {},
   getRoot = () => {},
@@ -17,27 +42,7 @@ export const getRealTimeUpdates = ({
     let onDBOArrived = (data) => {
       console.log(data)
       let root = getRoot()
-      if (data.db && data.op && data.oid && data.package) {
-        root.dbs = root.dbs || {}
-        root.dbs[data.db] = root.dbs[data.db] || []
-        let array = root.dbs[data.db]
-        if (data.op === 'upsert') {
-          let idx = array.findIndex(ii => ii.oid === data.oid)
-          if (idx === -1) {
-            array.push(data.package)
-          } else {
-            array[idx] = data.package
-          }
-        }
-        if (data.op === 'animate') {
-          let idx = array.findIndex(ii => ii.oid === data.oid)
-          array[idx] = data.package
-        }
-        if (data.op === 'remove') {
-          let idx = array.findIndex(ii => ii.oid === data.oid)
-          array.splice(idx, 1)
-        }
-      }
+      transformDoc(root, data)
       refresh()
     }
     socket.on('push:dbo', onDBOArrived)

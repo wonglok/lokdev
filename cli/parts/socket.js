@@ -1,3 +1,28 @@
+export const transformDoc = (root, data) => {
+  if (data.db && data.op && data.oid && data.package) {
+    root.dbs = root.dbs || {}
+    //
+    root.dbs[data.db] = root.dbs[data.db] || {
+      array: []
+    }
+
+    let array = root.dbs[data.db].array
+    if (data.op === 'upsert') {
+      let idx = array.findIndex(ii => ii.oid === data.oid)
+      if (idx === -1) {
+        array.push(data.package)
+      } else {
+        array[idx] = data.package
+      }
+    }
+    if (data.op === 'remove') {
+      let idx = array.findIndex(ii => ii.oid === data.oid)
+      array.splice(idx, 1)
+    }
+  }
+  return root
+}
+
 export const init = ({ port, db }) => {
   var http = require('http').Server()
   var io = require('socket.io')(http)
@@ -26,30 +51,9 @@ export const init = ({ port, db }) => {
     socket.on('req:dbo', (info) => {
       let data = info
       let root = db.getState()
-      if (data.db && data.op && data.oid && data.package) {
-        root.dbs = root.dbs || {}
-        root.dbs[data.db] = root.dbs[data.db] || []
-        let array = root.dbs[data.db]
-        if (data.op === 'upsert') {
-          let idx = array.findIndex(ii => ii.oid === data.oid)
-          if (idx === -1) {
-            array.push(data.package)
-          } else {
-            array[idx] = data.package
-          }
-        }
-        if (data.op === 'animate') {
-          let idx = array.findIndex(ii => ii.oid === data.oid)
-          array[idx] = data.package
-        }
-        if (data.op === 'remove') {
-          let idx = array.findIndex(ii => ii.oid === data.oid)
-          array.splice(idx, 1)
-        }
-      }
+      transformDoc(root, data)
 
-      trySaveRoot(root, () => {
-      })
+      trySaveRoot(root)
 
       socket.emit('push:dbo', info)
       socket.to('all').emit('push:dbo', info)

@@ -6,7 +6,7 @@ export function cli (argv) {
   Intro.run()
   Config.provideConfig()
     .then((config) => {
-      return DB.initDB(config.uidb)
+      return DB.initDB(config.uidb, config.port)
     })
     .then((db) => {
       Service.init({ db })

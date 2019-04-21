@@ -1,17 +1,22 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <!-- <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/inspector">Data Inspector</router-link> |
       <router-link to="/About">About</router-link>
-    </div>
-    <div class="content-div">
+    </div> -->
+    <!-- <div class="content-div"> -->
       <router-view/>
-    </div>
+    <!-- </div> -->
   </div>
 </template>
 
 <style>
+html, body, #app{
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
