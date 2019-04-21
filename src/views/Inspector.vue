@@ -1,6 +1,6 @@
 <template>
-  <div class="home">
-    <InspectorEngine v-if="root" :root="root"></InspectorEngine>
+  <div class="full">
+    <InspectorEngine class="full" v-if="root" :root="root"></InspectorEngine>
   </div>
 </template>
 
@@ -29,7 +29,13 @@ export default {
         return this.root
       },
       refresh: () => {
-        this.$children.forEach(e => e.$forceUpdate())
+        function loop (ea) {
+          ea.$children.forEach(e => {
+            e.$forceUpdate()
+            loop(e)
+          })
+        }
+        loop(this)
       },
       onRootArrived: (data) => {
         this.root = data

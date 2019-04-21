@@ -1,6 +1,6 @@
 <template>
   <div>
-    Home
+    <router-link to="/inspector">Data Inspector</router-link>
   </div>
 </template>
 

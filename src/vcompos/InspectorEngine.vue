@@ -1,46 +1,34 @@
 <template>
-  <div class="home">
-    <div v-if="root">
-      <div> Status: <span v-if="saving">Saving Data...</span> <span v-if="!saving">Saved.</span> </div>
-      <button @click="addTextDB()">Add Text DB</button>
+  <div class="full">
+    <div class="left-right">
+      <div class="json-editor">
+        <div v-if="root">
+          <CollectionManager v-if="root" :root="root" @dbID="(v) => { dbID = v }"></CollectionManager>
 
-      <nav>
-        Collections:
-        <div :key="db" v-for="db in getKeys(root.dbs)">
-          <div v-if="db">
-            <span>{{ db }}</span>
-            <button @click="dbID = db">Open DB</button>
-            <button @click="removeCollection({ dbID: db })">Remove DB: {{ db }}</button>
+          <div v-if="root.dbs && root.dbs[dbID]">
+            <DBText v-if="root.dbs[dbID].type === 'textdb'" :collection="root.dbs[dbID]"></DBText>
+            <DBLayout v-if="root.dbs[dbID].type === 'layoutdb'" :collection="root.dbs[dbID]"></DBLayout>
           </div>
         </div>
-      </nav>
-
-      <div v-if="dbID && root.dbs[dbID] && root">
-        <hr>
-        <strong>{{ dbID }}</strong>
-        <ul>
-          <li><button @click="upsertDBO({ dbID, obj: { oid: rID(), keyname: '', text: 'new item' }})">Add item</button></li>
-          <li :key="item.id" v-for="item in root.dbs[dbID].array">
-            <input type="text" v-model="item.keyname" @input="upsertDBO({ dbID, obj: item })">
-            <input type="text" v-model="item.text" @input="upsertDBO({ dbID, obj: item })">
-
-            <button @click="removeDBO({ dbID, obj: item })">Remove</button>
-          </li>
-        </ul>
       </div>
-
+      <div class="json-preview">
+        <pre v-if="root"><code>{{ root }}</code></pre>
+      </div>
     </div>
-    <pre v-if="root"><code>{{ root }}</code></pre>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import * as SDK from '../ui-database/sdk'
-
+import DBText from '../vcompos/DBText.vue'
+import DBLayout from '../vcompos/DBLayout.vue'
+import CollectionManager from '../vcompos/CollectionManager.vue'
 export default {
   name: 'inspector-engine',
   components: {
+    DBText,
+    DBLayout,
+    CollectionManager
   },
   props: {
     root: {
@@ -51,49 +39,13 @@ export default {
   data () {
     return {
       saving: false,
-      dbs: [],
-      clean () {},
-      rID () {
-        return `o_${Math.floor(Math.random() * 100000000000)}`
-      },
-      getKeys: (v) => {
-        return Object.keys(v || {})
-      },
       dbID: false
     }
   },
   beforeDestroy () {
-    this.clean()
   },
   methods: {
-    save () {
-      this.saving = true
-      SDK.save(this.root, () => {
-        this.saving = false
-      })
-    },
-    addTextDB () {
-      let dbID = window.prompt('what is your database ID?')
-      if (dbID) {
-        this.root.dbs[dbID] = this.root.dbs[dbID] || {
-          type: 'textdb',
-          array: []
-        }
-        this.save()
-      }
-    },
-    removeCollection ({ dbID }) {
-      if (window.prompt(`Please enter '${dbID}' to delete collection`) === dbID && window.confirm('Fianl Confirm.')) {
-        delete this.root.dbs[dbID]
-        this.save()
-      }
-    },
-    upsertDBO ({ dbID, obj }) {
-      SDK.doDBO({ db: dbID, op: 'upsert', oid: obj.oid, data: obj })
-    },
-    removeDBO ({ dbID, obj }) {
-      SDK.doDBO({ db: dbID, op: 'remove', oid: obj.oid, data: obj })
-    }
+
   },
   mounted () {
   }
@@ -101,29 +53,24 @@ export default {
 </script>
 
 <style scoped>
-.el-header, .el-footer {
-  background-color: #B3C0D1;
-  color: #333;
-  text-align: center;
-  line-height: 60px;
+.left-right{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  overflow: hidden;
 }
-
-.el-aside {
-  background-color: #D3DCE6;
-  color: #333;
-  text-align: center;
-  line-height: 200px;
+.json-editor{
+  display: block;
+  width: calc(400px);
+  height: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
-
-.el-main {
-  background-color: #E9EEF3;
-  color: #333;
-  text-align: center;
-  line-height: 160px;
+.json-preview{
+  display: block;
+  width: calc(100% - 400px);
+  height: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
-
-.el-container {
-  margin-bottom: 40px;
-}
-
 </style>

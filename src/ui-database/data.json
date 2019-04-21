@@ -1,42 +1,32 @@
 {
   "dbs": {
-    "dada": {
+    "lala": {
+      "dbID": "lala",
       "type": "textdb",
       "array": [
         {
-          "oid": "o_5617540159",
-          "keyname": "a",
-          "text": "aaaa"
+          "oid": "o_47993714711",
+          "keyname": "lalala",
+          "text": "new item"
         },
         {
-          "oid": "o_23371341160",
-          "keyname": "b",
-          "text": "BBB"
-        },
-        {
-          "oid": "o_42850653456",
-          "keyname": "c",
-          "text": "ccc"
-        },
-        {
-          "oid": "o_85644180204",
-          "keyname": "d",
-          "text": "ddd"
+          "oid": "o_46648573589",
+          "keyname": "wahaha",
+          "text": "new item"
         }
       ]
     },
-    "test": {
-      "type": "textdb",
+    "fafa": {
+      "dbID": "fafa",
+      "type": "layoutdb",
       "array": [
         {
-          "oid": "o_66751262200",
-          "keyname": "test!!!",
-          "text": "ohno!!!"
-        },
-        {
-          "oid": "o_36270193823",
-          "keyname": "ohno",
-          "text": "new item"
+          "oid": "o_95476780043",
+          "keyname": "fafafa",
+          "mode": "layout",
+          "x": "",
+          "y": "",
+          "z": "0"
         }
       ]
     }
