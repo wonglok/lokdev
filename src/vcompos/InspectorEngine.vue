@@ -12,7 +12,8 @@
         </div>
       </div>
       <div class="json-preview">
-        <pre v-if="root"><code>{{ root }}</code></pre>
+        <pre v-if="root && root.dbs && !dbID"><code>{{ root }}</code></pre>
+        <pre v-if="root && root.dbs && dbID"><code>{{ root.dbs[dbID] }}</code></pre>
       </div>
     </div>
   </div>

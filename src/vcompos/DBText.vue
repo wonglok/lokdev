@@ -5,9 +5,10 @@
       <ul>
         <li><button @click="upsertDBO({ dbID: collection.dbID, obj: { oid: rID(), keyname: '', text: 'new item' }})">Add item</button></li>
         <li :key="item.id" v-for="item in collection.array">
-          <input type="text" v-model="item.keyname" @input="upsertDBO({ dbID: collection.dbID, obj: item })">
+          <input type="text" v-model="item.keyname" :class="{ duplicated: nameIsDuplicated(item.keyname) }" @input="upsertDBO({ dbID: collection.dbID, obj: item })">
           <input type="text" v-model="item.text" @input="upsertDBO({ dbID: collection.dbID, obj: item })">
           <button @click="removeDBO({ dbID: collection.dbID, obj: item })">Remove</button>
+          <span v-if="nameIsDuplicated(item.keyname)" class="duplicated">Keyname is duplicated</span>
         </li>
       </ul>
     </div>
@@ -34,11 +35,16 @@ export default {
     },
     removeDBO ({ dbID, obj }) {
       SDK.doDBO({ db: dbID, op: 'remove', oid: obj.oid, data: obj })
+    },
+    nameIsDuplicated (keyname) {
+      return this.collection.array.filter(ins => ins.keyname === keyname).length >= 2
     }
   }
 }
 </script>
 
-<style>
-
+<style scoped>
+.duplicated{
+  color: red;
+}
 </style>

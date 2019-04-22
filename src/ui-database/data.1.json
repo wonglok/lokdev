@@ -21,24 +21,24 @@
       "type": "layoutdb",
       "array": [
         {
-          "oid": "o_81422511894",
-          "keyname": "1",
+          "oid": "o_95476780043",
+          "keyname": "fafafa",
+          "mode": "layout",
+          "x": "123",
+          "y": "123",
+          "z": "0"
+        },
+        {
+          "oid": "o_39512031484",
+          "keyname": "wahaa",
           "mode": "layout",
           "x": "",
           "y": "",
           "z": "0"
         },
         {
-          "oid": "o_23877039386",
-          "keyname": "4",
-          "mode": "layout",
-          "x": "",
-          "y": "",
-          "z": "0"
-        },
-        {
-          "oid": "o_82436310517",
-          "keyname": "5",
+          "oid": "o_82981918729",
+          "keyname": "waha",
           "mode": "layout",
           "x": "",
           "y": "",
@@ -63,11 +63,6 @@
         {
           "oid": "o_47235461690",
           "keyname": "guy",
-          "text": "new item"
-        },
-        {
-          "oid": "o_73440220554",
-          "keyname": "dreams",
           "text": "new item"
         }
       ]

@@ -7,6 +7,7 @@ export const provideConfig = () => {
       uidb: './src/ui-database/data.json',
       port: '2329'
     }
+
     let rcPath = path.join(process.cwd(), './.uidbrc.js')
     let rc = `
 module.exports = ${JSON.stringify(configInfo, null, '\t')};

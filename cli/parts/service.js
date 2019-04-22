@@ -12,12 +12,6 @@ export const init = ({ db }) => {
 
     db.defaults({
       dbs: {
-        demo: [
-          {
-            id: '12345',
-            text: '12345'
-          }
-        ]
       }
     })
       .write()

@@ -9,7 +9,7 @@ export const initDB = (file, port) => {
         reject(new Error('cannot create folder'))
       } else {
         if (!fs.existsSync(path.join(dirr, './sdk.js'))) {
-          let data = fs.readFileSync(path.join(__dirname, '../sdk/sdk.js'))
+          let data = fs.readFileSync(path.join(__dirname, '../sdk/template-sdk.js'))
           data = data.replace('2329', port || 2329)
           fs.writeFileSync(path.join(dirr, './sdk.js'), data)
         }
