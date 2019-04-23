@@ -1,76 +1,41 @@
 {
   "dbs": {
-    "lala": {
-      "dbID": "lala",
-      "type": "textdb",
+    "text": {
+      "dbID": "text",
+      "type": "text",
       "array": [
         {
-          "oid": "o_47993714711",
-          "keyname": "venus_vs",
-          "text": "new item"
-        },
-        {
-          "oid": "o_46648573589",
-          "keyname": "garden_fs",
-          "text": "new item"
+          "trashed": false,
+          "oid": "o_39355778142",
+          "keyname": "wahaha",
+          "text": "omg"
         }
       ]
     },
-    "fafa": {
-      "dbID": "fafa",
-      "type": "layoutdb",
-      "array": [
-        {
-          "oid": "o_81422511894",
-          "keyname": "1",
-          "mode": "layout",
-          "x": "",
-          "y": "",
-          "z": "0"
-        },
-        {
-          "oid": "o_23877039386",
-          "keyname": "4",
-          "mode": "layout",
-          "x": "",
-          "y": "",
-          "z": "0"
-        },
-        {
-          "oid": "o_82436310517",
-          "keyname": "5",
-          "mode": "layout",
-          "x": "",
-          "y": "",
-          "z": "0"
-        }
-      ]
+    "shader": {
+      "dbID": "shader",
+      "type": "shader",
+      "array": []
     },
-    "gaga": {
-      "dbID": "gaga",
-      "type": "textdb",
-      "array": [
-        {
-          "oid": "o_7132334265",
-          "keyname": "falala",
-          "text": "bbb"
-        },
-        {
-          "oid": "o_31957294789",
-          "keyname": "haha",
-          "text": "new item"
-        },
-        {
-          "oid": "o_47235461690",
-          "keyname": "guy",
-          "text": "new item"
-        },
-        {
-          "oid": "o_73440220554",
-          "keyname": "dreams",
-          "text": "new item"
-        }
-      ]
+    "css": {
+      "dbID": "css",
+      "type": "css",
+      "array": []
+    },
+    "vuecompos": {
+      "dbID": "vuecompos",
+      "type": "vuecompos",
+      "array": []
+    },
+    "uniform": {
+      "dbID": "uniform",
+      "type": "uniform",
+      "array": []
+    },
+    "obj3d": {
+      "dbID": "obj3d",
+      "type": "obj3d",
+      "array": []
     }
   }
 }

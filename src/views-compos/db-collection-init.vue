@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div> Status: <span v-if="saving">Saving Data...</span> <span v-if="!saving">Saved.</span> </div>
+    <!-- <div> Status: <span v-if="saving">Saving Data...</span> <span v-if="!saving">Saved.</span> </div>
 
     <button @click="addTextDB()">Add Text DB</button>
     <button @click="addLayoutDB()">Add Layout DB</button>
@@ -12,8 +12,7 @@
         <button @click="$emit('dbID', db.dbID)">Open DB</button>
         <button @click="removeCollection({ dbID: db.dbID })">Remove DB: {{ db.dbID }}</button>
       </div>
-    </nav>
-    <button @click="$emit('dbID', false)">View Root</button>
+    </nav> -->
   </div>
 </template>
 
@@ -24,11 +23,26 @@ export default {
   props: {
     root: {
       required: true
+    },
+    dbInit: {
+      required: true
     }
   },
   data () {
     return {
       saving: false
+    }
+  },
+  mounted () {
+    if (this.dbInit) {
+      this.addDBWithType(this.dbInit)
+    }
+  },
+  watch: {
+    dbInit () {
+      if (this.dbInit) {
+        this.addDBWithType(this.dbInit)
+      }
     }
   },
   methods: {
@@ -43,6 +57,21 @@ export default {
       SDK.save(this.root, () => {
         this.saving = false
       })
+    },
+    addDBWithType (dbType) {
+      let dbID = dbType
+
+      if (this.root.dbs[dbID]) {
+        return
+      }
+      if (dbID) {
+        this.root.dbs[dbID] = this.root.dbs[dbID] || {
+          dbID,
+          type: dbType,
+          array: []
+        }
+        this.save()
+      }
     },
     addTextDB () {
       let dbID = window.prompt('what is your database ID?')
@@ -82,6 +111,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

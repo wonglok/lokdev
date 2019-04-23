@@ -1,13 +1,13 @@
 <template>
   <div class="title-me">
-    {{ title }}
+    Let's <span class="wahaha">Fast Edit</span> :P
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    title: {}
+
   },
   data () {
     return {}
@@ -22,5 +22,9 @@ export default {
   font-size: 62px;
   color: #484848;
   letter-spacing: 0;
+}
+.wahaha{
+  color: white;
+  text-shadow: -2px -2px 0 rgba(0, 213, 255, 0.85), 2px 2px 0 rgba(255, 0, 255, 0.85);
 }
 </style>
