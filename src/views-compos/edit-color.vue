@@ -8,42 +8,32 @@
       <Chrome v-model="getColor().colors" @input="save"></Chrome>
       <div style="margin-left: 20px;">
         <p>Scheme</p>
-        <select v-model="scheme" @change="save">
+        <select v-model="getItem().scheme" @change="save">
           <option :key="sc" :value="sc" v-for="sc in schemes">{{ sc }}</option>
         </select>
 
         <p>Variation</p>
-        <select v-model="variation" @change="save">
+        <select v-model="getItem().variation" @change="save">
           <option :key="sc" :value="sc" v-for="sc in variations">{{ sc }}</option>
         </select>
 
         <p>Distance</p>
-        <input type="range" v-model="distance" min="0" max="1" step="0.0001" @input="save" />
+        <input type="range" v-model="getItem().distance" min="0" max="1" step="0.0001" @input="save" />
       </div>
     </div>
 
     <div class="flexrow" style="margin-top: 20px;">
       <div class="colorBox">
-        <div style="width: 100%; height: 100%;" @click="copy(getColor().colors.hex8)" :style="{ backgroundColor: getColor().colors.hex8 }"></div>
+        <div style="width: 100%; height: 100%;" @click="copy(getColor().colors.hex)" :style="{ backgroundColor: getColor().colors.hex8, textAlign: 'center', textShadow: '0px 0px 4px white', lineHeight: '60px' }">{{ getColor().colors.hex }}</div>
       </div>
     </div>
-    <div class="flexrow" v-if="getColor().others">
-      <div class="colorvar"><div @click="copy(getColor().others[0])" :style="{ width: '100%', height: '100%', opacity: opacity, backgroundColor: getColor().others[0] }"></div></div>
-      <div class="colorvar"><div @click="copy(getColor().others[1])" :style="{ width: '100%', height: '100%', opacity: opacity, backgroundColor: getColor().others[1] }"></div></div>
-      <div class="colorvar"><div @click="copy(getColor().others[2])" :style="{ width: '100%', height: '100%', opacity: opacity, backgroundColor: getColor().others[2] }"></div></div>
-      <div class="colorvar"><div @click="copy(getColor().others[3])" :style="{ width: '100%', height: '100%', opacity: opacity, backgroundColor: getColor().others[3] }"></div></div>
-    </div>
-    <div class="flexrow" v-if="getColor().others">
-      <div class="colorvar"><div @click="copy(getColor().others[4])" :style="{ width: '100%', height: '100%', opacity: opacity, backgroundColor: getColor().others[4] }"></div></div>
-      <div class="colorvar"><div @click="copy(getColor().others[5])" :style="{ width: '100%', height: '100%', opacity: opacity, backgroundColor: getColor().others[5] }"></div></div>
-      <div class="colorvar"><div @click="copy(getColor().others[6])" :style="{ width: '100%', height: '100%', opacity: opacity, backgroundColor: getColor().others[6] }"></div></div>
-      <div class="colorvar"><div @click="copy(getColor().others[7])" :style="{ width: '100%', height: '100%', opacity: opacity, backgroundColor: getColor().others[7] }"></div></div>
-    </div>
-    <div class="flexrow" v-if="getColor().others">
-      <div class="colorvar"><div @click="copy(getColor().others[8])" :style="{ width: '100%', height: '100%', opacity: opacity, backgroundColor: getColor().others[8] }"></div></div>
-      <div class="colorvar"><div @click="copy(getColor().others[9])" :style="{ width: '100%', height: '100%', opacity: opacity, backgroundColor: getColor().others[9] }"></div></div>
-      <div class="colorvar"><div @click="copy(getColor().others[10])" :style="{ width: '100%', height: '100%', opacity: opacity, backgroundColor: getColor().others[10] }"></div></div>
-      <div class="colorvar"><div @click="copy(getColor().others[11])" :style="{ width: '100%', height: '100%', opacity: opacity, backgroundColor: getColor().others[11] }"></div></div>
+    <div :key="intt + 'intt'" v-for="intt in [0 * 4, 1 * 4, 2 * 4, 3 * 4]">
+      <div class="flexrow" v-if="getColor().others && getOtherColor(intt + 0)">
+        <div class="colorvar"><div @click="copy(getOtherColor(intt + 0))" :style="{ width: '100%', height: '100%', textAlign: 'center', textShadow: '0px 0px 4px white', lineHeight: '60px', opacity: opacity, backgroundColor: getOtherColor(intt + 0) }">{{ getOtherColor(intt + 0) }}</div></div>
+        <div class="colorvar"><div @click="copy(getOtherColor(intt + 1))" :style="{ width: '100%', height: '100%', textAlign: 'center', textShadow: '0px 0px 4px white', lineHeight: '60px', opacity: opacity, backgroundColor: getOtherColor(intt + 1) }">{{ getOtherColor(intt + 1) }}</div></div>
+        <div class="colorvar"><div @click="copy(getOtherColor(intt + 2))" :style="{ width: '100%', height: '100%', textAlign: 'center', textShadow: '0px 0px 4px white', lineHeight: '60px', opacity: opacity, backgroundColor: getOtherColor(intt + 2) }">{{ getOtherColor(intt + 2) }}</div></div>
+        <div class="colorvar"><div @click="copy(getOtherColor(intt + 3))" :style="{ width: '100%', height: '100%', textAlign: 'center', textShadow: '0px 0px 4px white', lineHeight: '60px', opacity: opacity, backgroundColor: getOtherColor(intt + 3) }">{{ getOtherColor(intt + 3) }}</div></div>
+      </div>
     </div>
 
     <!-- <ACE style="width: 100%; height: 400px; overflow: hidden;" :mode="'glsl'" :getter="() => { return getItem().glsl }" :setter="(v) => { getItem().glsl = v; save(); }"></ACE> -->
@@ -106,13 +96,19 @@ export default {
       copy(val)
       window.alert(`Coped Color: ${val}`)
     },
+    getOtherColor (idx) {
+      return this.getColor().others[idx]
+    },
     getOthers () {
       let item = this.getItem()
       var scheme = new ColorScheme()
+      if (!item || !item.colors) {
+        return
+      }
       scheme.from_hue(item.colors.hsl.h)
-        .distance(this.distance)
-        .scheme(this.scheme)
-        .variation(this.variation)
+        .distance(item.distance)
+        .scheme(item.scheme)
+        .variation(item.variation)
 
       var colors = scheme.colors()
       item.others = colors.map(c => `#${c}`)
@@ -156,8 +152,11 @@ export default {
       })
     },
     save () {
-      this.getOthers()
-      this.upsertDBO({ dbID: this.collection.dbID, obj: this.getItem() })
+      clearTimeout(this.tt)
+      this.tt = setTimeout(() => {
+        this.getOthers()
+        this.upsertDBO({ dbID: this.collection.dbID, obj: this.getItem() })
+      }, 1000 / 120)
     },
     getJSON () {
       let template = `var root = {
@@ -177,7 +176,11 @@ ${JSON.stringify(this.getItem(), null, '  ').split('\n').map(j => '        ' + j
       return template
     },
     getItem () {
-      return this.collection.array.find(a => a.oid === this.oid)
+      let item = this.collection.array.find(a => a.oid === this.oid)
+      item.variation = item.variation || this.variations[0]
+      item.scheme = item.scheme || this.schemes[0]
+      item.distance = item.distance || this.distance
+      return item
     },
     rID () {
       return `o_${Math.floor(Math.random() * 100000000000)}`
@@ -224,7 +227,6 @@ input:focus{
   display: inline-block;
   width: calc(100%);
   height: 60px;
-  box-shadow: 0 0 2px rgba(0,0,0,.3), 0 4px 8px rgba(0,0,0,.3);
 }
 
 .colorvar{
@@ -236,5 +238,7 @@ input:focus{
 
 .flexrow{
   display: flex;
+  color: black;
 }
+
 </style>

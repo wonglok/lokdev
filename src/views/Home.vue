@@ -36,7 +36,7 @@ import * as SDK from '../ui-database/sdk'
 export default {
   components: {
     // 'overlay': require('../views-compos/overlay.vue').default,
-    'edit-numbers': require('../views-compos/edit-numbers.vue').default,
+    'edit-object': require('../views-compos/edit-object.vue').default,
     'edit-formula': require('../views-compos/edit-formula.vue').default,
     'edit-glsl': require('../views-compos/edit-glsl.vue').default,
     'edit-color': require('../views-compos/edit-color.vue').default,
@@ -77,8 +77,8 @@ export default {
         },
         {
           text: 'Object3D',
-          compos: 'edit-numbers',
-          dbID: 'number'
+          compos: 'edit-object',
+          dbID: 'object'
         },
         {
           text: 'Layout3D',
