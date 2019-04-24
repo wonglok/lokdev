@@ -21,6 +21,7 @@ export default {
   },
   mounted () {
     this.$nextTick(() => {
+      // this.$refs.clickers[this.$refs.clickers.length - 1].click()
       this.$refs.clickers[0].click()
     })
   }
@@ -31,7 +32,6 @@ export default {
 </style>
 
 <style scoped>
-
 .linkers-wrap{
   display: flex;
   flex-wrap: wrap;
@@ -42,8 +42,8 @@ export default {
   display: inline-block;
   transition: text-shadow 1s cubic-bezier(0.075, 0.82, 0.165, 1), color 1s cubic-bezier(0.075, 0.82, 0.165, 1);
   font-family: SourceSansPro-Regular, Arial, Helvetica, sans-serif;
-  font-size: 28px;
-  line-height: 28px;
+  font-size: 30px;
+  line-height: 30px;
   color: rgba(0, 0, 0, 0.692);
   letter-spacing: 0;
   text-shadow: none;
@@ -60,6 +60,7 @@ export default {
   text-shadow: -2px -2px 0 rgba(0, 213, 255, 0.345), 2px 2px 0 rgba(255, 0, 255, 0.366);
 }
 .linker.active{
+  font-weight: bolder;
   color: white;
   text-shadow: -2px -2px 0 rgba(0, 213, 255, 0.85), 2px 2px 0 rgba(255, 0, 255, 0.85);
 }

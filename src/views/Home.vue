@@ -16,7 +16,6 @@
             Please select item to start editing...
           </h1>
           <div v-else>
-            {{ enter }}
             <component v-if="dbID && root && enter && getItem(enter.oid)" :oid="enter.oid" :collection="root.dbs[dbID]" :root="root" :is="getCompos(dbID)"></component>
           </div>
         </div>
@@ -37,6 +36,11 @@ import * as SDK from '../ui-database/sdk'
 export default {
   components: {
     // 'overlay': require('../views-compos/overlay.vue').default,
+    'edit-numbers': require('../views-compos/edit-numbers.vue').default,
+    'edit-formula': require('../views-compos/edit-formula.vue').default,
+    'edit-glsl': require('../views-compos/edit-glsl.vue').default,
+    'edit-color': require('../views-compos/edit-color.vue').default,
+    'edit-css': require('../views-compos/edit-css.vue').default,
     'edit-text': require('../views-compos/edit-text.vue').default,
 
     'list-keyname': require('../views-compos/list-keyname.vue').default,
@@ -58,28 +62,28 @@ export default {
         },
         {
           text: 'CSS',
-          compos: 'edit-',
+          compos: 'edit-css',
           dbID: 'css'
         },
         {
           text: 'Shaders',
-          compos: 'edit-',
+          compos: 'edit-glsl',
           dbID: 'shader'
         },
         {
-          text: 'Uniforms',
-          compos: 'edit-',
-          dbID: 'uniform'
+          text: 'Colors',
+          compos: 'edit-color',
+          dbID: 'color'
         },
         {
           text: 'Object3D',
-          compos: 'edit-',
-          dbID: 'obj3d'
+          compos: 'edit-numbers',
+          dbID: 'number'
         },
         {
-          text: 'VueComponent',
-          compos: 'edit-',
-          dbID: 'vuecompos'
+          text: 'Layout3D',
+          compos: 'edit-formula',
+          dbID: 'formula'
         }
       ]
     }
@@ -105,10 +109,12 @@ export default {
           return this.root
         },
         refresh: () => {
-          function loop (ea) {
+          var loop = (ea) => {
             ea.$children.forEach(e => {
               e.$forceUpdate()
-              loop(e)
+              this.$nextTick(() => {
+                loop(e)
+              })
             })
           }
           loop(this)

@@ -1,18 +1,27 @@
 <template>
   <div>
     <h1>
-      Text: <input type="text" class="input-keynanme" v-model="getItem().keyname" @input="save">
+      Layout: <input type="text" class="input-keynanme" v-model="getItem().keyname" @input="save">
     </h1>
-    <ACE style="width: 100%; height: 400px; overflow: hidden;" :getter="() => { return getItem().text }" :setter="(v) => { getItem().text = v; save(); }"></ACE>
-    <!-- <pre><code class="javascript" v-html="`SDK.getText(root, '${getItem().keyname}');`"></code></pre> -->
+
+    <p>
+      This can be used for Responsive Three.js Layout Library. (work in progress.)
+    </p>
+
+    <ACE style="width: 100%; height: calc(50px); overflow: hidden;" :mode="'text'" :getter="() => { return getItem().position }" :setter="(v) => { getItem().position = v; save(); }"></ACE>
+    <ACE style="width: 100%; height: calc(100px); overflow: hidden;" :mode="'text'" :getter="() => { return getItem().fx }" :setter="(v) => { getItem().fx = v; save(); }"></ACE>
+    <ACE style="width: 100%; height: calc(100px); overflow: hidden;" :mode="'text'" :getter="() => { return getItem().fy }" :setter="(v) => { getItem().fy = v; save(); }"></ACE>
+    <ACE style="width: 100%; height: calc(100px); overflow: hidden;" :mode="'text'" :getter="() => { return getItem().fz }" :setter="(v) => { getItem().fz = v; save(); }"></ACE>
     <pre><code class="javascript" v-html="`SDK.getItem(root, '${collection.dbID}', '${getItem().keyname}');`"></code></pre>
 
+    <!-- <pre><code class="javascript" v-html="`SDK.getShader(root, '${getItem().keyname}');`"></code></pre> -->
     <pre><code class="javascript" v-html="getJSON()"></code></pre>
   </div>
 </template>
 
 <script>
 import * as SDK from '../ui-database/sdk'
+
 import ACE from '../views-compos/br-ace.vue'
 export default {
   components: {
@@ -40,6 +49,12 @@ export default {
     this.highlight()
   },
   methods: {
+    log (v) {
+      console.log(v)
+    },
+    runlayout () {
+
+    },
     highlight () {
       document.querySelectorAll('pre code').forEach((block) => {
         window.hljs.highlightBlock(block)

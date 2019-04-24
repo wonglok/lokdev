@@ -14,7 +14,7 @@
             <div class="dot-keyname">
               <div class="dot" ref="clickers" @click="$emit('enter', { dbID: collection.dbID, oid: item.oid })"></div>
               <div>
-                <input type="text" class="input-keynanme" v-model="item.keyname" :class="{ duplicated: nameIsDuplicated(item.keyname) }" @input="upsertDBO({ dbID: collection.dbID, obj: item })">
+                <input type="text" class="input-keynanme" v-model="item.keyname" :class="{ duplicated: nameIsDuplicated(item.keyname) }" @input="upsertDBO({ dbID: collection.dbID, obj: item })" @click="$emit('enter', { dbID: collection.dbID, oid: item.oid })">
                 <div>
                   <div class="dot-desc">
                     <span v-if="nameIsDuplicated(item.keyname) && item.keyname" class="duplicated">Keyname is duplicated</span>
@@ -25,7 +25,7 @@
                 </div>
               </div>
               <div class="dot-vis-icon">
-                <img class="dot-vis-icon-img" src="../assets/icons/enter-black.svg" @click="$emit('enter', { dbID: collection.dbID, oid: item.oid })" alt="remove" title="remove item" />
+                <img class="dot-vis-icon-img" src="../assets/icons/pencil-black.svg" @click="$emit('enter', { dbID: collection.dbID, oid: item.oid })" alt="remove" title="remove item" />
               </div>
               <div class="dot-vis-icon">
                 <img class="dot-vis-icon-img" src="../assets/icons/trash-black.svg" @click="transhItem({ item, collection })" alt="remove" title="remove item" />
@@ -77,12 +77,14 @@ export default {
     'collection.type': {
       deep: true,
       handler () {
+        this.clickFirst()
         // this.createExample()
       }
     }
   },
   methods: {
     restoreItem ({ item, collection }) {
+      this.protectedRemove = true
       item.trashed = false
       this.upsertDBO({ dbID: collection.dbID, obj: item })
     },
@@ -121,8 +123,8 @@ export default {
           dbID: this.collection.dbID,
           obj: {
             oid: this.rID(),
-            trashed: false,
-            keyname: `${this.collection.dbID}_${Math.floor(this.collection.array.length + 1)}`
+            keyname: `${this.collection.dbID}_${Math.floor(this.collection.array.length + 1)}`,
+            trashed: false
           }
         })
       }
@@ -132,20 +134,23 @@ export default {
         this.upsertDBO({
           dbID: this.collection.dbID,
           obj: {
-            trashed: false,
             oid: this.rID(),
-            keyname: `${this.collection.dbID}_1`
+            keyname: `${this.collection.dbID}_1`,
+            trashed: false
           }
         })
       }
+    },
+    clickFirst () {
+      this.$nextTick(() => {
+        if (this.$refs.clickers && this.$refs.clickers[0]) {
+          this.$refs.clickers[0].click()
+        }
+      })
     }
   },
   mounted () {
-    this.$nextTick(() => {
-      if (this.$refs.clickers && this.$refs.clickers[0]) {
-        this.$refs.clickers[0].click()
-      }
-    })
+    this.clickFirst()
     // this.createExample()
   }
 }
@@ -197,6 +202,8 @@ export default {
 }
 
 .input-keynanme{
+  font-family: SourceSansPro-Regular, Arial, Helvetica, sans-serif;
+
   background-color: transparent;
   font-size: 30px;
   border: none;

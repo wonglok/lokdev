@@ -72,3 +72,7 @@ export const doDBO = ({ db, op = 'upsert', oid, data }) => {
 export const save = (v, cb) => {
   socket.emit('req-save:root', v, cb)
 }
+
+export const getItem = (root, dbID, keyname) => {
+  return root.dbs[dbID].arry.find(a => a.keyname === keyname)
+}

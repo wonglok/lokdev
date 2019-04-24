@@ -1,10 +1,10 @@
 <template>
   <div>
     <h1>
-      Text: <input type="text" class="input-keynanme" v-model="getItem().keyname" @input="save">
+      CSS: <input type="text" class="input-keynanme" v-model="getItem().keyname" @input="save">
     </h1>
-    <ACE style="width: 100%; height: 400px; overflow: hidden;" :getter="() => { return getItem().text }" :setter="(v) => { getItem().text = v; save(); }"></ACE>
-    <!-- <pre><code class="javascript" v-html="`SDK.getText(root, '${getItem().keyname}');`"></code></pre> -->
+    <ACE style="width: 100%; height: 400px; overflow: hidden;" :mode="'css'" :getter="() => { return getItem().css }" :setter="(v) => { getItem().css = v; save(); }"></ACE>
+    <!-- <pre><code class="javascript" v-html="`SDK.getCSS(root, '${getItem().keyname}');`"></code></pre> -->
     <pre><code class="javascript" v-html="`SDK.getItem(root, '${collection.dbID}', '${getItem().keyname}');`"></code></pre>
 
     <pre><code class="javascript" v-html="getJSON()"></code></pre>

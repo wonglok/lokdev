@@ -5,36 +5,346 @@
       "type": "text",
       "array": [
         {
+          "oid": "o_19108271192",
+          "keyname": "text_1",
           "trashed": false,
-          "oid": "o_39355778142",
-          "keyname": "wahaha",
-          "text": "omg"
+          "text": "aroma"
+        },
+        {
+          "oid": "o_13317532166",
+          "keyname": "text_2",
+          "trashed": false
         }
       ]
     },
     "shader": {
       "dbID": "shader",
       "type": "shader",
-      "array": []
+      "array": [
+        {
+          "oid": "o_38142895058",
+          "keyname": "lok_fs",
+          "trashed": false
+        },
+        {
+          "oid": "o_2402323342",
+          "keyname": "lok_vs",
+          "trashed": false
+        }
+      ]
     },
     "css": {
       "dbID": "css",
       "type": "css",
-      "array": []
+      "array": [
+        {
+          "oid": "o_63695297214",
+          "keyname": "css_1",
+          "trashed": false
+        }
+      ]
     },
     "vuecompos": {
       "dbID": "vuecompos",
       "type": "vuecompos",
-      "array": []
+      "array": [
+        {
+          "oid": "o_97603889205",
+          "keyname": "vuecompos_1",
+          "trashed": false
+        }
+      ]
     },
     "uniform": {
       "dbID": "uniform",
       "type": "uniform",
-      "array": []
+      "array": [
+        {
+          "oid": "o_49711546574",
+          "keyname": "uniform_1",
+          "trashed": false
+        }
+      ]
     },
     "obj3d": {
       "dbID": "obj3d",
       "type": "obj3d",
+      "array": [
+        {
+          "oid": "o_26280951090",
+          "keyname": "obj3d_1",
+          "trashed": false
+        }
+      ]
+    },
+    "layout": {
+      "dbID": "layout",
+      "type": "layout",
+      "array": [
+        {
+          "oid": "o_72044704678",
+          "keyname": "home_mobile",
+          "trashed": false,
+          "lx": "",
+          "ly": "",
+          "lz": ""
+        },
+        {
+          "oid": "o_64267285602",
+          "keyname": "home_falala",
+          "trashed": false
+        }
+      ]
+    },
+    "formula": {
+      "dbID": "formula",
+      "type": "formula",
+      "array": [
+        {
+          "oid": "o_48999758518",
+          "keyname": "formula_1",
+          "trashed": false,
+          "fx": "aa",
+          "fy": "a",
+          "position": "a",
+          "fz": "a"
+        },
+        {
+          "oid": "o_15948190237",
+          "keyname": "formula_2",
+          "trashed": false
+        }
+      ]
+    },
+    "color": {
+      "dbID": "color",
+      "type": "color",
+      "array": [
+        {
+          "oid": "o_4341197793",
+          "keyname": "primary",
+          "trashed": false,
+          "colors": {
+            "hsl": {
+              "h": 230.60606060606065,
+              "s": 0.9104000000000001,
+              "l": 0.5886,
+              "a": 1
+            },
+            "hex": "#3754F6",
+            "hex8": "#3754F6FF",
+            "rgba": {
+              "r": 55,
+              "g": 84,
+              "b": 246,
+              "a": 1
+            },
+            "hsv": {
+              "h": 230.60606060606065,
+              "s": 0.7777459558882163,
+              "v": 0.9631385600000001,
+              "a": 1
+            },
+            "oldHue": 230.60606060606065,
+            "source": "rgba",
+            "a": 1
+          },
+          "others": [
+            "#6a7d97",
+            "#596a80",
+            "#cfd9e6",
+            "#6089bf",
+            "#c88c91",
+            "#80595c",
+            "#e6cfd0",
+            "#bf6067",
+            "#ccc68f",
+            "#807c59",
+            "#e6e3cf",
+            "#bfb660"
+          ]
+        },
+        {
+          "oid": "o_86540903863",
+          "keyname": "color_2",
+          "trashed": true,
+          "colors": {
+            "hsl": {
+              "h": 204.7058823529417,
+              "s": 0.6251700448746248,
+              "l": 0.53605629,
+              "a": 1
+            },
+            "hex": "#3F96D3",
+            "hex8": "#3F96D3FF",
+            "rgba": {
+              "r": 63,
+              "g": 150,
+              "b": 211,
+              "a": 1
+            },
+            "hsv": {
+              "h": 204.7058823529417,
+              "s": 0.7021999999999999,
+              "v": 0.8261,
+              "a": 1
+            },
+            "oldHue": 204.7058823529417,
+            "source": "hsva",
+            "a": 1
+          },
+          "others": [
+            "#5a817b",
+            "#59807a",
+            "#cfe6e2",
+            "#60bfb0",
+            "#b17c99",
+            "#80596e",
+            "#e6cfdb",
+            "#bf6093",
+            "#ccb88f",
+            "#807359",
+            "#e6decf",
+            "#bf9f60"
+          ]
+        },
+        {
+          "oid": "o_80210273018",
+          "keyname": "secondary",
+          "trashed": false,
+          "colors": {
+            "hsl": {
+              "h": 204.7058823529417,
+              "s": 0.7532113194520299,
+              "l": 0.58912216,
+              "a": 1
+            },
+            "hex": "#47A4E5",
+            "hex8": "#47A4E5FF",
+            "rgba": {
+              "r": 71,
+              "g": 164,
+              "b": 229,
+              "a": 1
+            },
+            "hsv": {
+              "h": 204.7058823529417,
+              "s": 0.6888000000000001,
+              "v": 0.8986,
+              "a": 1
+            },
+            "oldHue": 204.7058823529417,
+            "source": "hsva",
+            "a": 1
+          },
+          "others": [
+            "#5a817b",
+            "#59807a",
+            "#cfe6e2",
+            "#60bfb0",
+            "#b17c99",
+            "#80596e",
+            "#e6cfdb",
+            "#bf6093",
+            "#ccb88f",
+            "#807359",
+            "#e6decf",
+            "#bf9f60"
+          ]
+        },
+        {
+          "oid": "o_75297047005",
+          "keyname": "info",
+          "trashed": false,
+          "colors": {
+            "hsl": {
+              "h": 110.58823529411771,
+              "s": 0.278363694471077,
+              "l": 0.45065422499999996,
+              "a": 1
+            },
+            "hex": "#5D9353",
+            "hex8": "#5D9353FF",
+            "rgba": {
+              "r": 93,
+              "g": 147,
+              "b": 83,
+              "a": 1
+            },
+            "hsv": {
+              "h": 110.58823529411771,
+              "s": 0.4355,
+              "v": 0.5761,
+              "a": 1
+            },
+            "oldHue": 110.58823529411771,
+            "source": "hsva",
+            "a": 1
+          },
+          "others": [
+            "#ccc88f",
+            "#807d59",
+            "#e6e4cf",
+            "#bfb960",
+            "#6f769b",
+            "#5b6180",
+            "#d0d3e6",
+            "#6574bf",
+            "#ab7898",
+            "#805971",
+            "#e6cfdd",
+            "#bf609b"
+          ]
+        },
+        {
+          "oid": "o_72674320782",
+          "keyname": "warning",
+          "trashed": false,
+          "colors": {
+            "hsl": {
+              "h": 35.29411764705884,
+              "s": 0.9377413710837378,
+              "l": 0.5374135200000001,
+              "a": 1
+            },
+            "hex": "#F89D1A",
+            "hex8": "#F89D1AFF",
+            "rgba": {
+              "r": 248,
+              "g": 157,
+              "b": 26,
+              "a": 1
+            },
+            "hsv": {
+              "h": 35.29411764705884,
+              "s": 0.8933,
+              "v": 0.9712000000000001,
+              "a": 1
+            },
+            "oldHue": 35.29411764705884,
+            "source": "hsva",
+            "a": 1
+          },
+          "others": [
+            "#cca98f",
+            "#806a59",
+            "#e6d9cf",
+            "#bf8960",
+            "#8dbe85",
+            "#5f8059",
+            "#d2e6cf",
+            "#6dbf60",
+            "#686489",
+            "#615d80",
+            "#d3d1e6",
+            "#7369bf"
+          ]
+        }
+      ]
+    },
+    "number": {
+      "dbID": "number",
+      "type": "number",
       "array": []
     }
   }
