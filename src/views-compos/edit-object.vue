@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>
-      Numbers: <input type="text" class="input-keynanme" v-model="getItem().keyname" @input="save">
+      Object3D: <input type="text" class="input-keynanme" v-model="getItem().keyname" @input="save">
     </h1>
 
     <!-- <ACE style="width: 100%; height: 400px; overflow: hidden;" :mode="'glsl'" :getter="() => { return getItem().glsl }" :setter="(v) => { getItem().glsl = v; save(); }"></ACE> -->
@@ -30,13 +30,13 @@
     <hr>
 
     <strong class="labelme">item.rotation.x</strong>
-    <input type="range" @input="save" v-model="getItem().rotation.x" :min="-pi * 4.0" :max="pi * 4.0" step="0.01"><input type="number" @input="save" v-model="getItem().rotation.x">
+    <input type="range" @input="save" v-model="getItem().rotation.x" :min="(-pi * 4.0).toFixed(3)" :max="(pi * 4.0).toFixed(3)" step="0.01"><input type="number" @input="save" v-model="getItem().rotation.x">
     <br />
     <strong class="labelme">item.rotation.y</strong>
-    <input type="range" @input="save" v-model="getItem().rotation.y" :min="-pi * 4.0" :max="pi * 4.0" step="0.01"><input type="number" @input="save" v-model="getItem().rotation.y">
+    <input type="range" @input="save" v-model="getItem().rotation.y" :min="(-pi * 4.0).toFixed(3)" :max="(pi * 4.0).toFixed(3)" step="0.01"><input type="number" @input="save" v-model="getItem().rotation.y">
     <br />
     <strong class="labelme">item.rotation.z</strong>
-    <input type="range" @input="save" v-model="getItem().rotation.z" :min="-pi * 4.0" :max="pi * 4.0" step="0.01"><input type="number" @input="save" v-model="getItem().rotation.z">
+    <input type="range" @input="save" v-model="getItem().rotation.z" :min="(-pi * 4.0).toFixed(3)" :max="(pi * 4.0).toFixed(3)" step="0.01"><input type="number" @input="save" v-model="getItem().rotation.z">
 
     <pre><code class="javascript" v-html="`SDK.getItem(root, '${collection.dbID}', '${getItem().keyname}');`"></code></pre>
 
@@ -80,6 +80,37 @@ export default {
       })
     },
     save () {
+      let item = this.getItem()
+      if (!isNaN(item.position.x)) {
+        item.position.x = Number(item.position.x)
+      }
+      if (!isNaN(item.position.y)) {
+        item.position.y = Number(item.position.y)
+      }
+      if (!isNaN(item.position.z)) {
+        item.position.z = Number(item.position.z)
+      }
+
+      if (!isNaN(item.rotation.x)) {
+        item.rotation.x = Number(item.rotation.x)
+      }
+      if (!isNaN(item.rotation.y)) {
+        item.rotation.y = Number(item.rotation.y)
+      }
+      if (!isNaN(item.rotation.z)) {
+        item.rotation.z = Number(item.rotation.z)
+      }
+
+      if (!isNaN(item.scale.x)) {
+        item.scale.x = Number(item.scale.x)
+      }
+      if (!isNaN(item.scale.y)) {
+        item.scale.y = Number(item.scale.y)
+      }
+      if (!isNaN(item.scale.z)) {
+        item.scale.z = Number(item.scale.z)
+      }
+
       this.upsertDBO({ dbID: this.collection.dbID, obj: this.getItem() })
     },
     getJSON () {
@@ -103,7 +134,7 @@ ${JSON.stringify(this.getItem(), null, '  ').split('\n').map(j => '        ' + j
       let item = this.collection.array.find(a => a.oid === this.oid)
       item.position = item.position || { x: 0, y: 0, z: 0 }
       item.rotation = item.rotation || { x: 0, y: 0, z: 0 }
-      item.scale = item.scale || { x: 0, y: 0, z: 0 }
+      item.scale = item.scale || { x: 1, y: 1, z: 1 }
       return item
     },
     rID () {

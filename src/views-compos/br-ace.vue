@@ -7,6 +7,11 @@
 <script>
 import { setInterval, clearInterval } from 'timers'
 /* eslint-disable */
+let randomID = window.localStorage.getItem('randomID')
+if (!randomID) {
+  window.localStorage.setItem('randomID', Math.random())
+  randomID = window.localStorage.getItem('randomID')
+}
 export default {
   props: {
     mode: {
@@ -15,7 +20,7 @@ export default {
     setter: {
     },
     getter: {
-    },
+    }
   },
   data () {
     return {
@@ -25,6 +30,9 @@ export default {
     }
   },
   watch: {
+    getter () {
+
+    }
   },
   beforeDestroy () {
     clearInterval(this.tt)
@@ -36,6 +44,7 @@ export default {
     require(`brace/mode/glsl`)
     require(`brace/mode/html`)
     require(`brace/mode/markdown`)
+
     require('brace/theme/monokai')
     require('brace/theme/chrome')
     require('brace/ext/searchbox')
@@ -45,37 +54,32 @@ export default {
     editor.getSession().setMode(`ace/mode/${this.mode}`)
     // editor.setStyle('inconsolata-ace')
     editor.setTheme('ace/theme/monokai')
-    editor.setValue(this.getter() || '', 1)
-    editor.getSession().setUndoManager(new ace.UndoManager())
+    editor.setValue(this.getter() || '', -1)
     editor.setOption('fontSize', '17px')
     editor.session.setOptions({ tabSize: 2, useSoftTabs: true })
     editor.session.setOption('useWorker', false)
 
-    editor.on('change', () => {
+    this.isKeyboard = false
+    editor.on('change', (evt) => {
       if (this.isme) {
         return
       }
+      this.isKeyboard = true
       this.setter(editor.getValue())
+      setTimeout(() => {
+        this.isKeyboard = false
+      }, 3000)
     })
 
-    this.tt = setInterval(() => {
-      let t = this.editor.getValue()
-      try {
-        t = this.getter() || ''
-      } catch (e) {
-      }
-      if (t !== this.editor.getValue()) {
+    setInterval(() => {
+      if (editor.getValue() !== '' && this.getter() !== editor.getValue() && !this.isKeyboard) {
         this.isme = true
-        // var curPos = editor.getCursorPosition()
-        editor.setValue(t, 1)
-        editor.clearSelection()
-        // editor.moveCursorTo(curPos.row, curPos.colum)
+        editor.setValue(this.getter(), -1)
         this.isme = false
       }
     }, 0)
 
-
-    editor.$blockScrolling = Infinity
+    // editor.$blockScrolling = Infinity
     var commands = [
       {
         name: 'open-files',

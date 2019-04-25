@@ -104,28 +104,31 @@ export default {
       return this.dbTypes.find(c => c.dbID === dbID).compos
     },
     onInit () {
-      let cleaner = SDK.getRealTimeUpdates({
+      var cascader = (ea) => {
+        this.$forceUpdate()
+        this.$emit('fast-edit-refresh')
+        ea.$children.forEach(e => {
+          e.$forceUpdate()
+          e.$emit('fast-edit-refresh')
+          this.$nextTick(() => {
+            cascader(e)
+          })
+        })
+      }
+      let cleanFn = SDK.getRealTimeUpdates({
         getRoot: () => {
           return this.root
         },
         refresh: () => {
-          var loop = (ea) => {
-            ea.$children.forEach(e => {
-              e.$forceUpdate()
-              this.$nextTick(() => {
-                loop(e)
-              })
-            })
-          }
-          loop(this)
+          cascader(this)
         },
         onRootArrived: (data) => {
           this.root = data
-          // console.log(JSON.stringify(data, null, '\t'))
         }
       })
+
       this.clean = () => {
-        cleaner()
+        cleanFn()
       }
     }
   },

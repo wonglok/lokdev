@@ -74,5 +74,47 @@ export const save = (v, cb) => {
 }
 
 export const getItem = (root, dbID, keyname) => {
-  return root.dbs[dbID].arry.find(a => a.keyname === keyname)
+  if (!root) {
+    return false
+  }
+  if (!root.dbs) {
+    return false
+  }
+  if (!root.dbs[dbID]) {
+    return false
+  }
+  if (!root.dbs[dbID].array) {
+    return false
+  }
+
+  return root.dbs[dbID].array.find(a => a.keyname === keyname)
 }
+
+/*
+var cascader = (ea) => {
+  this.$forceUpdate()
+  this.$emit('fast-edit-refresh')
+  ea.$children.forEach(e => {
+    e.$forceUpdate()
+    e.$emit('fast-edit-refresh')
+    this.$nextTick(() => {
+      cascader(e)
+    })
+  })
+}
+let cleanFn = SDK.getRealTimeUpdates({
+  getRoot: () => {
+    return this.root
+  },
+  refresh: () => {
+    cascader(this)
+  },
+  onRootArrived: (data) => {
+    this.root = data
+  }
+})
+
+this.clean = () => {
+  cleanFn()
+}
+*/
